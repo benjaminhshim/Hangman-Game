@@ -1,0 +1,30 @@
+// CREATE AN ARRAY OF ANSWERS
+
+// CREATE GLOBAL VARIABLES
+
+// COMPUTER CHOOSES A RANDOM WORD
+
+// CREATE _ FOR EACH LETTER IN THE ANSWER
+
+// CREATE FUNCTION FOR USER'S KEY PRESS
+
+    // STORE USER'S KEY PRESS INTO userGuess
+
+    // IF USER PICKS A WRONG LETTER
+        // STORE LETTER INTO alreadyGuessed
+        // guessesLeft -1
+        // *THE LETTER MAY ONLY BE PICKED ONCE*
+
+    // IF guessesLeft REACHES 0
+        // RESET guessesLeft to 10
+        // RESET alreadyGuessed ARRAY TO EMPTY
+        // COMPUTER CHOOSES A NEW RANDOM WORD
+
+
+    // IF USER PICKS A CORRECT LETTER
+        // REVEAL LETTER IN computerAnswer
+        // guessesLeft STILL GOES DOWN BY 1
+        
+    // IF USER GUESSES THE RIGHT WORD
+        // wins +1
+        // COMPUTER CHOOSES A NEW RANDOM WORD
