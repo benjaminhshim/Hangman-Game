@@ -28,6 +28,11 @@ function wordArray() {
 wordArray();
 
 // INITIALIZE GAME STATS AFTER A WIN
+    // RESET guessesLeft to 10
+    // RESET alreadyGuessed ARRAY
+    // COMPUTER CHOOSES A NEW WORD AT RANDOM
+    // NEW WORD GETS CONVERTED TO _
+    // PRINT RESULTS TO WINDOW
 function resetGame() {
     guessesLeft = 10;
     alreadyGuessed = [];
@@ -44,11 +49,14 @@ function resetGame() {
     console.log(computerAnswer);
 }
 
+
+// CHECK userGuess
+    // userGuess MAY ONLY BE CHOSEN ONCE PER ROUND
 function checkUserGuess() {
+
     // IF USER PICKS A WRONG LETTER
         // STORE LETTER INTO alreadyGuessed
         // guessesLeft -1
-        // LETTER MAY ONLY BE CHOSEN ONCE
     if (computerAnswer.indexOf(userGuess) < 0 && alreadyGuessed.indexOf(userGuess) < 0) {
         alreadyGuessed[alreadyGuessed.length] = userGuess;
         guessesLeft--;
@@ -57,9 +65,7 @@ function checkUserGuess() {
     // IF USER PICKS A CORRECT LETTER
         // REVEAL LETTER IN computerAnswer
         // guessesLeft REMAINS AS IS
-
     for (var i = 0; i < computerAnswer.length; i++) {
-
         if (userGuess === computerAnswer[i]) {
             answerArray[i] = computerAnswer[i];
             document.getElementById('current-word').innerHTML = answerArray.join(' ');
