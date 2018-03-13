@@ -110,13 +110,14 @@ function isLose() {
     }
 }
 
-// CREATE FUNCTION FOR USER'S KEY PRESS
+// CREATE GLOBAL FUNCTION FOR USER'S KEY PRESS
 document.onkeyup = function (event) {
 
     // STORE USER'S KEY PRESS INTO userGuess
     userGuess = String.fromCharCode(event.keyCode);
     console.log('You chose: ' + userGuess);
 
+    // CHECK IS userGuess IS A RIGHT OR WRONG LETTER
     checkUserGuess();
 
     // RESET GAME WHEN USER PRESSES 'SPACEBAR'
@@ -124,12 +125,10 @@ document.onkeyup = function (event) {
         resetGame();
     }
 
+    // RUN APPROPRIATE FUNCTION IF THE WINNER WINS OR LOSES
     isWin();
 
     isLose();
 
-    
- 
-
-} // end onkeyup
+}
 
