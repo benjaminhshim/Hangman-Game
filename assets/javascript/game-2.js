@@ -80,7 +80,7 @@ function checkUserGuess() {
 function isWin() {
         // wins +1
         // KANYE WILL GIVE YOU A THUMBS UP
-        // DISPLAY WORD TO THE WINDOW
+        // DISPLAY CORRECT WORD TO THE WINDOW
         // ALERT USER TO PRESS 'SPACEBAR' TO PLAY AGAIN
     if (answerArray.indexOf('_') === -1) {
         console.log('win!');
@@ -99,11 +99,10 @@ function isWin() {
 
 // CHECK IF USER LOSES
 function isLose() {
-// IF guessesLeft REACHES 0
-    // RESET guessesLeft to 10
-    // RESET alreadyGuessed ARRAY TO EMPTY
-    // COMPUTER CHOOSES A NEW RANDOM WORD
 
+    // IF guessesLeft REACHES 0
+        // DISPLAY CORRECT WORD TO THE WINDOW
+        // ALERT USER TO PRESS 'SPACEBAR' TO PLAY AGAIN
     if (guessesLeft === 0) {
         document.getElementById('result').innerHTML = 'answer was ' + '<span style="background-color:red">' + computerAnswer + '</span>';
         document.getElementById('reset').innerHTML = 'press SPACEBAR to play again';
