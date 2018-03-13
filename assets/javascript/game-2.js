@@ -49,7 +49,6 @@ function resetGame() {
     console.log(computerAnswer);
 }
 
-
 // CHECK userGuess
     // userGuess MAY ONLY BE CHOSEN ONCE PER ROUND
 function checkUserGuess() {
@@ -77,13 +76,12 @@ function checkUserGuess() {
 
 }
 
+// CHECK IF USER GUESSES THE RIGHT WORD
 function isWin() {
-    // IF USER GUESSES THE RIGHT WORD
         // wins +1
-        // RESET alreadyGuessed ARRAY TO EMPTY
-        // RESET guessesLeft TO 10
-        // COMPUTER CHOOSES A NEW RANDOM WORD
-
+        // KANYE WILL GIVE YOU A THUMBS UP
+        // DISPLAY WORD TO THE WINDOW
+        // ALERT USER TO PRESS 'SPACEBAR' TO PLAY AGAIN
     if (answerArray.indexOf('_') === -1) {
         console.log('win!');
         wins++;
@@ -99,6 +97,7 @@ function isWin() {
     } 
 }
 
+// CHECK IF USER LOSES
 function isLose() {
 // IF guessesLeft REACHES 0
     // RESET guessesLeft to 10
@@ -121,6 +120,7 @@ document.onkeyup = function (event) {
 
     checkUserGuess();
 
+    // RESET GAME WHEN USER PRESSES 'SPACEBAR'
     if (userGuess === ' ') {
         resetGame();
     }
