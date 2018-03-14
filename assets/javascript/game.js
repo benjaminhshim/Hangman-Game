@@ -13,10 +13,6 @@ var letters;
 // COMPUTER CHOOSES A RANDOM WORD
 var computerAnswer = choices[Math.floor(Math.random() * choices.length)];
 
-for (var i = 0; i < choices.length; i++) {
-    console.log(choices[i]);
-}
-
 console.log(computerAnswer);
 
 // CREATE _ FOR EACH LETTER IN THE ANSWER
@@ -25,8 +21,6 @@ function wordArray() {
         answerArray[i] = '_';
         letters = answerArray.join(' ');
     }
-    console.log(letters);
-
     document.getElementById('current-word').innerHTML = letters;
 
 }
@@ -34,25 +28,34 @@ function wordArray() {
 wordArray();
 
 // INITIALIZE GAME STATS AFTER A WIN
+    // RESET guessesLeft to 10
+    // RESET alreadyGuessed ARRAY
+    // COMPUTER CHOOSES A NEW WORD AT RANDOM
+    // NEW WORD GETS CONVERTED TO _
+    // PRINT RESULTS TO WINDOW
 function resetGame() {
     guessesLeft = 10;
     alreadyGuessed = [];
     computerAnswer = choices[Math.floor(Math.random() * choices.length)];
+    answerArray = [];
     wordArray();
-    //document.getElementById('result').innerHTML = ' ';
+
+    document.getElementById('wins').innerHTML = wins;
+    document.getElementById('guesses-left').innerHTML = guessesLeft;
+    document.getElementById('already-guessed').innerHTML = alreadyGuessed;
+    document.getElementById('result').innerHTML = ' ';
+    document.getElementById('reset').innerHTML = ' ';
+    document.getElementById('kanye-win').innerHTML = ' ';
+    console.log(computerAnswer);
 }
 
-// CREATE FUNCTION FOR USER'S KEY PRESS
-document.onkeyup = function (event) {
-
-    // STORE USER'S KEY PRESS INTO userGuess
-    userGuess = String.fromCharCode(event.keyCode);
-    console.log('You chose: ' + userGuess);
+// CHECK userGuess
+    // userGuess MAY ONLY BE CHOSEN ONCE PER ROUND
+function checkUserGuess() {
 
     // IF USER PICKS A WRONG LETTER
         // STORE LETTER INTO alreadyGuessed
         // guessesLeft -1
-        // LETTER MAY ONLY BE CHOSEN ONCE
     if (computerAnswer.indexOf(userGuess) < 0 && alreadyGuessed.indexOf(userGuess) < 0) {
         alreadyGuessed[alreadyGuessed.length] = userGuess;
         guessesLeft--;
@@ -60,14 +63,8 @@ document.onkeyup = function (event) {
 
     // IF USER PICKS A CORRECT LETTER
         // REVEAL LETTER IN computerAnswer
-        // guessesLeft STILL GOES DOWN BY 1
-
-    if (computerAnswer.indexOf(userGuess) >= 0) {
-        guessesLeft--;
-    }
-
+        // guessesLeft REMAINS AS IS
     for (var i = 0; i < computerAnswer.length; i++) {
-
         if (userGuess === computerAnswer[i]) {
             answerArray[i] = computerAnswer[i];
             document.getElementById('current-word').innerHTML = answerArray.join(' ');
@@ -76,71 +73,62 @@ document.onkeyup = function (event) {
 
     document.getElementById('already-guessed').innerHTML = alreadyGuessed.join(' ');
     document.getElementById('guesses-left').innerHTML = guessesLeft;
-    
-    // IF guessesLeft REACHES 0
-        // RESET guessesLeft to 10
-        // RESET alreadyGuessed ARRAY TO EMPTY
-        // COMPUTER CHOOSES A NEW RANDOM WORD
 
-    if (guessesLeft === 0) {
-      //  document.getElementById('result').innerHTML = 'Answer was ' + computerAnswer + '. Press a key to try again';
-        
-        document.getElementById('already-guessed').innerHTML = alreadyGuessed.join(' ');
-        document.getElementById('guesses-left').innerHTML = guessesLeft;
+}
 
-        document.getElementById('result').innerHTML = 'Answer was ' + computerAnswer + '. Try again';
-    
-        computerAnswer = choices[Math.floor(Math.random() * choices.length)];
-        for (var i = 0; i < computerAnswer.length; i++) {
-            answerArray[i] = '_';
-            letters = answerArray.join(' ');
-        }
-
-        console.log(computerAnswer);
-
-
-        document.getElementById('current-word').innerHTML = letters;
-        guessesLeft = 10;
-        alreadyGuessed = [];
-
-        document.getElementById('already-guessed').innerHTML = alreadyGuessed.join(' ');
-        document.getElementById('guesses-left').innerHTML = guessesLeft;
-
-    }
-
-        
-    // IF USER GUESSES THE RIGHT WORD
+// CHECK IF USER GUESSES THE RIGHT WORD
+function isWin() {
         // wins +1
-        // RESET alreadyGuessed ARRAY TO EMPTY
-        // RESET guessesLeft TO 10
-        // COMPUTER CHOOSES A NEW RANDOM WORD
-
+        // KANYE WILL GIVE YOU A THUMBS UP
+        // DISPLAY CORRECT WORD TO THE WINDOW
+        // ALERT USER TO PRESS 'SPACEBAR' TO PLAY AGAIN
     if (answerArray.indexOf('_') === -1) {
         console.log('win!');
         wins++;
-        
-        document.getElementById('wins').innerHTML = wins;
-        document.getElementById('result').innerHTML = computerAnswer + ' You win!';
 
-        computerAnswer = choices[Math.floor(Math.random() * choices.length)];
-        
-        for (var i = 0; i < computerAnswer.length; i++) {
-            answerArray[i] = '_';
-            letters = answerArray.join(' ');
-            
-        }
+        var kanyeWin = "<img src=\"assets/images/kanye-west-thumbs-up.png\">";
+        document.getElementById('kanye-win').innerHTML = kanyeWin;
 
-        document.getElementById('current-word').innerHTML = letters;
-
-        guessesLeft = 10;
-        alreadyGuessed = [];
-
-    
+        document.getElementById('result').innerHTML = '<span style="background-color:red">' + computerAnswer + '</span>' + ' you win!';
+        document.getElementById('reset').innerHTML = 'press SPACEBAR to play again';
 
         console.log(computerAnswer);
         
     } 
+}
 
-    
+// CHECK IF USER LOSES
+function isLose() {
 
-} // end onkeyup
+    // IF guessesLeft REACHES 0
+        // DISPLAY CORRECT WORD TO THE WINDOW
+        // ALERT USER TO PRESS 'SPACEBAR' TO PLAY AGAIN
+    if (guessesLeft === 0) {
+        document.getElementById('result').innerHTML = 'answer was ' + '<span style="background-color:red">' + computerAnswer + '</span>';
+        document.getElementById('reset').innerHTML = 'press SPACEBAR to play again';
+
+    }
+}
+
+// CREATE GLOBAL FUNCTION FOR USER'S KEY PRESS
+document.onkeyup = function (event) {
+
+    // STORE USER'S KEY PRESS INTO userGuess
+    userGuess = String.fromCharCode(event.keyCode);
+    console.log('You chose: ' + userGuess);
+
+    // CHECK IS userGuess IS A RIGHT OR WRONG LETTER
+    checkUserGuess();
+
+    // RESET GAME WHEN USER PRESSES 'SPACEBAR'
+    if (userGuess === ' ') {
+        resetGame();
+    }
+
+    // RUN APPROPRIATE FUNCTION IF THE WINNER WINS OR LOSES
+    isWin();
+
+    isLose();
+
+}
+
